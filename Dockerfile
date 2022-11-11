@@ -1,9 +1,11 @@
 FROM tomcat:9.0-jre17-temurin-jammy
 
-LABEL maintainer=îarun2005.iitr@gmail.comî
+LABEL maintainer=‚Äùarun2005.iitr@gmail.com‚Äù
 
-ADD ABCtechnologies-1.0.war /usr/local/tomcat/webapps/
+RUN cp workspace/Package-job/target/ABCtechnologies-1.0.war /tmp/ABCtechnologies-1.0.war
+RUN unzip ABCtechnologies-1.0.war -d ABCtechnologies
+RUN mv ABCtechnologies /usr/local/tomcat/webapps/
 
 EXPOSE 8080
 
-CMD [ìcatalina.shî, ìrunî]
+CMD [‚Äúcatalina.sh‚Äù, ‚Äúrun‚Äù]
