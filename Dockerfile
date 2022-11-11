@@ -2,8 +2,7 @@ FROM tomcat:9.0-jre17-temurin-jammy
 
 LABEL maintainer=”arun2005.iitr@gmail.com”
 
-RUN pwd
-RUN cp ./target/ABCtechnologies-1.0.war /tmp/ABCtechnologies-1.0.war
+COPY ./target/ABCtechnologies-1.0.war /tmp/ABCtechnologies-1.0.war
 RUN unzip /tmp/ABCtechnologies-1.0.war -d /tmp/ABCtechnologies
 RUN mv ABCtechnologies /usr/local/tomcat/webapps/
 
