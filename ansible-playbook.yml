@@ -19,8 +19,7 @@
       community.docker.docker_image:
        state: absent
        name: abc-technology
-       tag: v1
-       delegate_to: 127.0.0.1
+       tag: v1       
     - name: Build the image
       community.docker.docker_image:
        build:
@@ -28,7 +27,6 @@
        name: abc-technology
        tag: v1
        source: build
-       delegate_to: 127.0.0.1
     - name: Create the container
       docker_container:
        name: ABCtechnology
