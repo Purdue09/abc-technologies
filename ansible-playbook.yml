@@ -1,17 +1,17 @@
 ---
 
-- name: Build docker image
+- name: Build docker image & deploy on docker container
   gather_facts: false
   hosts: all
   tasks:
     - name: Copy Dockerfile file to all hostmachines
       copy: src=./Dockerfile
             dest=./
-    - name: Stop a container, if running
+    - name: Stop the container, if running
       docker_container:
        name: ABCtechnology
        state: stopped
-    - name: remove container
+    - name: Remove container
       docker_container:
        name: ABCtechnology
        state: absent
@@ -20,14 +20,14 @@
        state: absent
        name: abc-technology
        tag: v1
-    - name: Build an image and push it to a private repo
+    - name: Build the image
       community.docker.docker_image:
        build:
         path: ~/
        name: abc-technology
        tag: v1
        source: build
-    - name: Create a container
+    - name: Create the container
       docker_container:
        name: ABCtechnology
        image: abc-technology:v1
