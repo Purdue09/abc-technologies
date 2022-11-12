@@ -10,10 +10,12 @@
     - name: Stop the container, if running
       docker_container:
        name: ABCtechnology
+       image: abc-technology:v1
        state: stopped
     - name: Remove container
       docker_container:
        name: ABCtechnology
+       image: abc-technology:v1
        state: absent
     - name: Remove image
       community.docker.docker_image:
@@ -30,8 +32,7 @@
     - name: Create the container
       docker_container:
        name: ABCtechnology
-       image: abc-technology
-       tag: v1
+       image: abc-technology:v1
        ports:
         - "80:8080"  
 ...
