@@ -30,7 +30,8 @@
     - name: Create the container
       docker_container:
        name: ABCtechnology
-       image: abc-technology:v1
+       image: abc-technology
+       tag: v1
        ports:
         - "80:8080"  
 ...
