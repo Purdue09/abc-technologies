@@ -1,0 +1,22 @@
+---
+
+- name: Build docker image
+  gather_facts: false
+  hosts: all
+  tasks:
+    - name: Copy Dockerfile file to all hostmachines
+      copy: src=./Dockerfile
+            dest=./
+    - name: Remove image
+      community.docker.docker_image:
+       state: absent
+       name: abc-technology
+       tag: v1
+    - name: Build an image and push it to a private repo
+      community.docker.docker_image:
+       build:
+        path: ~/
+       name: abc-technology
+       tag: v1
+       source: build
+...
