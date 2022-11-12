@@ -7,6 +7,14 @@
     - name: Copy Dockerfile file to all hostmachines
       copy: src=./Dockerfile
             dest=./
+    - name: Stop a container, if running
+      docker_container:
+       name: ABCtechnology
+       state: stopped
+    - name: remove container
+      docker_container:
+       name: ABCtechnology
+       state: absent
     - name: Remove image
       community.docker.docker_image:
        state: absent
@@ -19,18 +27,10 @@
        name: abc-technology
        tag: v1
        source: build
-    - name: Stop a container, if running
-      docker_container:
-       name: ABCtechnology
-       state: stopped
-    - name: remove container
-      docker_container:
-       name: ABCtechnology
-       state: absent
     - name: Create a container
       docker_container:
        name: ABCtechnology
        image: abc-technology:v1
        ports:
-        - "8080:80"  
+        - "80:8080"  
 ...
