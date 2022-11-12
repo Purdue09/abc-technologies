@@ -32,5 +32,5 @@
        name: ABCtechnology
        image: abc-technology:v1
        ports:
-        - "8080:9090"  
+        - "8080:80"  
 ...
