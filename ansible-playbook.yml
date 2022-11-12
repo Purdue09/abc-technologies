@@ -19,4 +19,18 @@
        name: abc-technology
        tag: v1
        source: build
+    - name: Stop a container, if running
+      docker_container:
+       name: ABCtechnology
+       state: stopped
+    - name: remove container
+      docker_container:
+       name: ABCtechnology
+       state: absent
+    - name: Create a container
+      docker_container:
+       name: ABCtechnology
+       image: abc-technology:v1
+       ports:
+        - "8080:9090"  
 ...
