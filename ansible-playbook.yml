@@ -4,9 +4,15 @@
   gather_facts: false
   hosts: all
   tasks:
-    - name: Copy Dockerfile file to all hostmachines
-      copy: src=./Dockerfile
-            dest=./
+    - name: Build the image
+      hosts: 127.0.0.1
+      connection: local
+      community.docker.docker_image:
+       build:
+        path: ~/
+       name: abc-technology
+       tag: v1
+       source: build
     - name: Stop the container, if running
       docker_container:
        name: ABCtechnology
@@ -22,21 +28,15 @@
        state: absent
        name: abc-technology
        tag: v1
-    - name: Build the image
-      hosts: 127.0.0.1
-      connection: local
-      community.docker.docker_image:
-       build:
-        path: ~/
+    - name: Tag and push to docker hub
+      docker_image:
        name: abc-technology
+       repository: arunbuee/abc-technology
        tag: v1
-       source: build
-    - name: Push image to dockerhub repo
-    // ToDO
+       push: yes
     - name: Pull image from dockerhub repo
       docker_image:
        name: arunbuee/abc-technology:v1
-       
     - name: Create the container
       docker_container:
        name: ABCtechnology
