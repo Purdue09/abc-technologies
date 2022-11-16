@@ -29,6 +29,11 @@
        build:
         path: .
        tag: latest
+    - name: Log into DockerHub
+      docker_login:
+       username: arunbuee
+       password: Edureka@123
+       email: arun2005.iitr@gmail.com
     - name: Tag and push to docker hub on local
       connection: local
       docker_image:
