@@ -30,6 +30,7 @@
         path: .
        tag: latest
     - name: Log into DockerHub
+      connection: local
       docker_login:
        username: arunbuee
        password: Edureka@123
