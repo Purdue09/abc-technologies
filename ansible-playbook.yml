@@ -27,7 +27,7 @@
        name: arunbuee/abc-technology
        source: build
        build:
-        path: /home/arun/abc-technologies/
+        path: ~/.
        tag: latest
     - name: Tag and push to docker hub on local
       connection: local
