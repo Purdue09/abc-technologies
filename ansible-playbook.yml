@@ -17,7 +17,7 @@
        state: absent
     - name: Remove image
       ignore_errors: yes
-      community.docker.docker_image:
+      docker_image:
        state: absent
        name: arunbuee/abc-technology
        tag: latest
@@ -39,7 +39,7 @@
     - name: Remove image
       connection: local
       ignore_errors: yes
-      community.docker.docker_image:
+      docker_image:
        state: absent
        name: arunbuee/abc-technology
        tag: latest
