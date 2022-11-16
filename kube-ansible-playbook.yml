@@ -2,7 +2,6 @@
 - name: Build docker image & deploy on docker container
   gather_facts: true
   hosts: localhost
-  conection: local
   tasks:
     - name: Build the image on local
       docker_image:
