@@ -1,46 +1,97 @@
 ---
 
+
+
 - name: Build docker image & deploy on docker container
+
   gather_facts: false
+
   hosts: all
+
   tasks:
-    - name: Build the image
-      hosts: 127.0.0.1
-      connection: local
-      community.docker.docker_image:
-       build:
-        path: ~/
-       name: abc-technology
-       tag: v1
-       source: build
+
     - name: Stop the container, if running
+
+      ignore_errors: yes
+
       docker_container:
+
        name: ABCtechnology
-       image: abc-technology:v1
+
+       image: arunbuee/abc-technology:latest
+
        state: stopped
+
     - name: Remove container
+
+      ignore_errors: yes
+
       docker_container:
+
        name: ABCtechnology
-       image: abc-technology:v1
+
+       image: arunbuee/abc-technology:latest
+
        state: absent
+
     - name: Remove image
+
+      ignore_errors: yes
+
       community.docker.docker_image:
+
        state: absent
-       name: abc-technology
-       tag: v1
+
+       name: arunbuee/abc-technology
+
+       tag: latest
+
+    - name: Build the image
+
+      connection: local
+
+      docker_image:
+
+       name: arunbuee/abc-technology
+
+       source: build
+
+       build:
+
+        path: ~/
+
+       tag: latest
+
     - name: Tag and push to docker hub
+
       docker_image:
-       name: abc-technology
+
+       name: arunbuee/abc-technology:latest
+
        repository: arunbuee/abc-technology
-       tag: v1
+
        push: yes
+
+       source: local
+
     - name: Pull image from dockerhub repo
+
       docker_image:
-       name: arunbuee/abc-technology:v1
+
+       name: arunbuee/abc-technology:latest
+
+       source: pull
+
     - name: Create the container
+
       docker_container:
+
        name: ABCtechnology
-       image: abc-technology:v1
+
+       image: arunbuee/abc-technology:latest
+
        ports:
+
         - "80:8080"  
+
 ...
