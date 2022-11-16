@@ -1,10 +1,10 @@
 ---
 - name: Build docker image & deploy on docker container
   gather_facts: true
-  hosts: all
+  hosts: localhost
+  conection: local
   tasks:
     - name: Build the image on local
-      connection: local
       docker_image:
        name: arunbuee/abc-technology
        source: build
@@ -12,20 +12,17 @@
         path: .
        tag: latest
     - name: Log into DockerHub
-      connection: local
       docker_login:
        username: arunbuee
        password: Edureka@123
        email: arun2005.iitr@gmail.com
     - name: Tag and push to docker hub on local
-      connection: local
       docker_image:
        name: arunbuee/abc-technology:latest
        repository: arunbuee/abc-technology
        push: yes
        source: local
     - name: Remove image
-      connection: local
       ignore_errors: yes
       docker_image:
        state: absent
