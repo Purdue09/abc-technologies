@@ -1,97 +1,56 @@
 ---
-
-
-
 - name: Build docker image & deploy on docker container
-
-  gather_facts: false
-
+  gather_facts: true
   hosts: all
-
   tasks:
-
     - name: Stop the container, if running
-
       ignore_errors: yes
-
       docker_container:
-
        name: ABCtechnology
-
        image: arunbuee/abc-technology:latest
-
        state: stopped
-
     - name: Remove container
-
       ignore_errors: yes
-
       docker_container:
-
        name: ABCtechnology
-
        image: arunbuee/abc-technology:latest
-
        state: absent
-
     - name: Remove image
-
       ignore_errors: yes
-
       community.docker.docker_image:
-
        state: absent
-
        name: arunbuee/abc-technology
-
        tag: latest
-
-    - name: Build the image
-
+    - name: Build the image on local
       connection: local
-
       docker_image:
-
        name: arunbuee/abc-technology
-
        source: build
-
        build:
-
-        path: ~/
-
+        path: /home/arun/abc-technologies/
        tag: latest
-
-    - name: Tag and push to docker hub
-
+    - name: Tag and push to docker hub on local
+      connection: local
       docker_image:
-
        name: arunbuee/abc-technology:latest
-
        repository: arunbuee/abc-technology
-
        push: yes
-
        source: local
-
+    - name: Remove image
+      connection: local
+      ignore_errors: yes
+      community.docker.docker_image:
+       state: absent
+       name: arunbuee/abc-technology
+       tag: latest
     - name: Pull image from dockerhub repo
-
       docker_image:
-
        name: arunbuee/abc-technology:latest
-
        source: pull
-
     - name: Create the container
-
       docker_container:
-
        name: ABCtechnology
-
        image: arunbuee/abc-technology:latest
-
        ports:
-
-        - "80:8080"  
-
+        - "80:8080"
 ...
